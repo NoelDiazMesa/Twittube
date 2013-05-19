@@ -71,7 +71,10 @@ class UsuariosController < ApplicationController
 
     respond_to do |format|
       if @usuario.update_attributes(params[:usuario])
-        format.html { redirect_to @usuario, notice: 'Usuario was successfully updated.' }
+        flash[:success] = "Profile updated"
+        sign_in @user
+        redirect_to @user
+        format.html { redirect_to @usuario, notice: 'El usuario se ha creado satisfactoriamente' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -90,5 +93,8 @@ class UsuariosController < ApplicationController
       format.html { redirect_to usuarios_url }
       format.json { head :no_content }
     end
+  end
+  def edit
+    @user = User.find(params[:id])
   end
 end
