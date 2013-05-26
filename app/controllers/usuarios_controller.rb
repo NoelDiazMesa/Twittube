@@ -5,6 +5,7 @@ class UsuariosController < ApplicationController
   # GET /usuarios.json
   def index
     @usuarios = Usuario.all
+    # Habria que poner esto @users = User.paginate(page: params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
