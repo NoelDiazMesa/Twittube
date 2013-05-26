@@ -1,4 +1,8 @@
 Twittube::Application.routes.draw do
+  resources :usuarios
+  resources :post
+  resources :usuarios_sessions
+  resources :sessions, only: [:new, :create, :destroy]
 
   root :to => 'sessions#new'  
   
@@ -13,14 +17,7 @@ Twittube::Application.routes.draw do
   match '/form', to: 'static_pages#form'
 
 
-  resources :usuarios
 
-  resources :post
-
-
-  resources :usuarios_sessions
-
-  resources :sessions, only: [:new, :create, :destroy]
 
   
 

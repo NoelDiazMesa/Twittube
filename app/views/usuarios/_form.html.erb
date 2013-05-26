@@ -1,23 +1,25 @@
 <% provide(:title, 'Registrate') %>
-<h1>Registrate</h1>
 
 <div class="row">
   <div class="span6 offset3">
     <%= form_for(@usuario) do |f| %>
     <%= render 'shared/error_messages' %>
-    <%= f.label "Nombre de usuario" %><br />
+    <%= f.label "Nombre" %><br />
     <%= f.text_field :username %>
 
     <%= f.label :email %><br />
     <%= f.text_field :email %>
 
 
-    <%= f.label "Contraseña" %><br />
+    <%= f.label "Password" %><br />
     <%= f.text_field :password %>
 
-    <%= f.label "Repite tu contraseña"  %><br />
+    <%= f.label "Repite tu password"  %><br />
     <%= f.text_field :password_confirmation %>
-
+      </div>
+</div>
+<div class="row">
+  <div class="span6 offset3">
     <%= f.submit "Crear cuenta", class: "btn btn-large btn-primary"%>
     <% end %>
   </div>
