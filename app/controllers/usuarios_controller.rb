@@ -1,4 +1,6 @@
 class UsuariosController < ApplicationController
+   before_filter :signed_in_user, only: [:edit, :update]
+   before_filter :correct_user,   only: [:edit, :update]
   # GET /usuarios
   # GET /usuarios.json
   def index
@@ -66,6 +68,7 @@ class UsuariosController < ApplicationController
 
   # PUT /usuarios/1
   # PUT /usuarios/1.json
+
   def update
     @usuario = Usuario.find(params[:id])
 
@@ -97,4 +100,15 @@ class UsuariosController < ApplicationController
   def edit
     @user = User.find(params[:id])
   end
+  private
+    def signed_in_user
+      unless signed_in?
+        store_location
+        redirect_to signin_url, notice: "Please sign in."
+      end
+    end
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
+    end
 end
