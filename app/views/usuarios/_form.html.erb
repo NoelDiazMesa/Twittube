@@ -1,34 +1,24 @@
-<%= form_for(@usuario) do |f| %>
-  <% if @usuario.errors.any? %>
-    <div id="error_explanation">
-      <h3><%= pluralize(@usuario.errors.count, " error ") %> No se puede registrar este usuario:</h3>
+<% provide(:title, 'Registrate') %>
+<h1>Registrate</h1>
 
-      <ul>
-      <% @usuario.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@usuario) do |f| %>
+    <%= render 'shared/error_messages' %>
     <%= f.label "Nombre de usuario" %><br />
     <%= f.text_field :username %>
-  </div>
-  <div class="field">
+
     <%= f.label :email %><br />
     <%= f.text_field :email %>
-  </div>
-  <div class="field">
+
+
     <%= f.label "Contraseña" %><br />
     <%= f.text_field :password %>
-  </div>
-  <div class="field">
+
     <%= f.label "Repite tu contraseña"  %><br />
     <%= f.text_field :password_confirmation %>
-  </div>
 
-  <div class="actions">
-    <%= f.submit "Crear cuenta"%>
+    <%= f.submit "Crear cuenta", class: "btn btn-large btn-primary"%>
+    <% end %>
   </div>
-<% end %>
+</div>
