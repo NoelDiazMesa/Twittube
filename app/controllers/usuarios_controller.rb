@@ -1,8 +1,12 @@
 class UsuariosController < ApplicationController
+  before_filter :signed_in_user, only: [:edit, :update]
+  before_filter :correct_user,   only: [:edit, :update]
+  before_filter :admin_user,     only: :destroy
   # GET /usuarios
   # GET /usuarios.json
   def index
-    @usuarios = Usuario.all
+    #@usuarios = Usuario.all
+    @usuarios = Usuario.paginate(page: params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -66,12 +70,16 @@ class UsuariosController < ApplicationController
 
   # PUT /usuarios/1
   # PUT /usuarios/1.json
+
   def update
     @usuario = Usuario.find(params[:id])
 
     respond_to do |format|
       if @usuario.update_attributes(params[:usuario])
-        format.html { redirect_to @usuario, notice: 'Usuario was successfully updated.' }
+        flash[:success] = "Profile updated"
+        sign_in @user
+        redirect_to @user
+        format.html { redirect_to @usuario, notice: 'El usuario se ha creado satisfactoriamente' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -90,5 +98,25 @@ class UsuariosController < ApplicationController
       format.html { redirect_to usuarios_url }
       format.json { head :no_content }
     end
+    # Habria que poner      User.find(params[:id]).destroy
+    #                       flash[:success] = "User destroyed."
+    #                       redirect_to users_url
   end
+  def edit
+    @user = Usuario.find(params[:id])
+  end
+  private
+    def signed_in_user
+      unless signed_in?
+        store_location
+        redirect_to signin_url, notice: "Please sign in."
+      end
+    end
+    def correct_user
+      @user = Usuario.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
+    end
+    def admin_user
+      redirect_to(root_path) unless current_user.admin?
+    end
 end
