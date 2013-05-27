@@ -1,31 +1,12 @@
 <% provide(:title, 'All users') %>
-<h1>Usuarios registrados</h1>
+<h1>All users</h1>
 
 <%= will_paginate %>
 
-<table>
-  <tr>
-    <th>Nombre de usuario</th>
-    <th>Email</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
 <ul class="users">
-<% @usuarios.each do |usuario| %>
-  <tr>
-    <td><%= usuario.username %></td>
-    <td><%= usuario.email %></td>
-    <td><%= link_to 'Show', usuario %></td>
-    <td><%= link_to 'Edit', edit_usuario_path(usuario) %></td>
-    <td><%= link_to 'Destroy', usuario, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    <%= render @users %>
-  </tr>
+<% @usuarios.each do |usuarios| %>
+ <%= render @usuarios %>
 <% end %>
 </ul>
-</table>
-
-<br />
-
-<%= link_to 'Registrarse', new_usuario_path %>
 <%= will_paginate %>
+

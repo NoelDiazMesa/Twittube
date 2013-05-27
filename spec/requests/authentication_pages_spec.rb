@@ -54,7 +54,7 @@ describe "Authentication" do
 
       describe "when attempting to visit a protected page" do
         before do
-          visit edit_usuarios_path(usuario)
+          visit edit_usuario_path(usuario)
           fill_in "Email",    with: usuario.email
           fill_in "Password", with: usuario.password
           click_button "Acceder"
@@ -63,7 +63,7 @@ describe "Authentication" do
         describe "after signing in" do
 
           it "should render the desired protected page" do
-            page.should have_selector('title', text: 'Edit user')
+            page.should have_selector('title', text: full_title('Edit user'))
           end
         end
       end
@@ -71,17 +71,17 @@ describe "Authentication" do
       describe "in the Users controller" do
 
         describe "visiting the edit page" do
-          before { visit edit_usuario_path(user) }
+          before { visit edit_usuario_path(usuario) }
           it { should have_selector('title', text: 'Bienvenidos') }
         end
 
         describe "submitting to the update action" do
-          before { put usuarios_path(usuario) }
+          before { put usuario_path(usuario) }
           specify { response.should redirect_to(signin_path) }
         end
         describe "visiting the user index" do
-          before { visit usuarios_path }
-          it { should have_selector('title', text: 'Bienvenidos') }
+          before { visit usuario_path }
+          it { should have_selector('title', text: 'Sing in') }
         end
       end
     end
