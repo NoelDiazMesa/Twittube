@@ -1,6 +1,27 @@
-<% provide(:title, 'Registrate') %>
-<h1>Registrate</h1>
+<% provide(:title, 'Sing up') %>
+<h1>Sing up</h1>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@usuario) do |f| %>
+    <%= render 'shared/error_messages' %>
+
+    <%= f.label :username, "Nombre" %><br />
+    <%= f.text_field :username %>
+
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+
+
+    <%= f.label :password %><br />
+    <%= f.text_field :password %>
+
+    <%= f.label :password_confirmation, "Confirmation"  %><br />
+    <%= f.text_field :password_confirmation %>
+ 
+    <%= f.submit "Crear cuenta", class: "btn btn-large btn-primary"%>
+    <% end %>
+  </div>
+</div>
 
 <%= link_to 'Regresar', login_path %>

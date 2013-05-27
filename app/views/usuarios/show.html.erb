@@ -1,13 +1,16 @@
 <% provide(:title, @usuario.username) %>
 <h1><%= @usuario.username %></h1>
 
-<table class="profile" summary="Profile information">
-  <tr>
-    <td class="main">
-		<h1>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
  		 	<%= gravatar_for @usuario %>
   		<%= @usuario.username %>
-		</h1>
+		      </h1>
+    </section>
+  </aside>
+</div>
 
 		<p id="notice"><%= notice %></p>
 
@@ -23,3 +26,4 @@
 
 <%= link_to 'Edit', edit_usuario_path(@usuario) %> |
 <%= link_to 'Back', usuarios_path %>
+

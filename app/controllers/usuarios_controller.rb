@@ -41,11 +41,11 @@ class UsuariosController < ApplicationController
   # POST /usuarios
   # POST /usuarios.json
   def create
-    @user = Usuario.new(params[:usuario])
-    if @user.save
-      sign_in @user
+    @usuario = Usuario.new(params[:usuario])
+    if @usuario.save
+      sign_in @usuario
       flash[:success] = "Bienvenido a Twittube!"
-      redirect_to @user
+      redirect_to @usuario
     else
       render 'new'
     end
