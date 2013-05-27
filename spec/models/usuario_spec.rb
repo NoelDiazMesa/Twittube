@@ -6,8 +6,7 @@ describe Usuario do
     @user = Usuario.new(:username  => "User",
               :email     => "user@example.com",
               :password  => "example01",
-              :password_confirmation => "example01", 
-              :password_digest => "example01" )
+              :password_confirmation => "example01")
   end
 
   subject { @user }

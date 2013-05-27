@@ -5,8 +5,8 @@ describe Usuario do
   before do
     @user = Usuario.new(:username  => "User",
               :email     => "user@example.com",
-              :password  => "foobar",
-              :password_confirmation => "foobar" )
+              :password  => "example01",
+              :password_confirmation => "example01")
   end
 
   subject { @user }
@@ -18,6 +18,7 @@ describe Usuario do
   it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
+  it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:microposts) }
 
@@ -113,11 +114,13 @@ describe Usuario do
       specify { user_for_invalid_password.should be_false }
     end
   end
+  
 
-   describe "remember token" do
+  describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
   end
+
 
   describe "micropost associations" do
 
