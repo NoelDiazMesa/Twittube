@@ -5,8 +5,8 @@ class UsuariosController < ApplicationController
   # GET /usuarios
   # GET /usuarios.json
   def index
-    @usuarios = Usuario.all
-    # Habria que poner esto @users = User.paginate(page: params[:page])
+    #@usuarios = Usuario.all
+    @usuarios = Usuario.paginate(page: params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -103,7 +103,7 @@ class UsuariosController < ApplicationController
     #                       redirect_to users_url
   end
   def edit
-    @user = User.find(params[:id])
+    @user = Usuario.find(params[:id])
   end
   private
     def signed_in_user
@@ -113,7 +113,7 @@ class UsuariosController < ApplicationController
       end
     end
     def correct_user
-      @user = User.find(params[:id])
+      @user = Usuario.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
     end
     def admin_user

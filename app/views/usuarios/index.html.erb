@@ -1,4 +1,7 @@
+<% provide(:title, 'All users') %>
 <h1>Usuarios registrados</h1>
+
+<%= will_paginate %>
 
 <table>
   <tr>
@@ -8,7 +11,7 @@
     <th></th>
     <th></th>
   </tr>
-
+<ul class="users">
 <% @usuarios.each do |usuario| %>
   <tr>
     <td><%= usuario.username %></td>
@@ -16,23 +19,13 @@
     <td><%= link_to 'Show', usuario %></td>
     <td><%= link_to 'Edit', edit_usuario_path(usuario) %></td>
     <td><%= link_to 'Destroy', usuario, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <%= render @users %>
   </tr>
 <% end %>
+</ul>
 </table>
 
 <br />
 
 <%= link_to 'Registrarse', new_usuario_path %>
-
-<!--
-  <% provide(:title, 'All users') %>
-<h1>All users</h1>
 <%= will_paginate %>
-
-<ul class="users">
-  <% @users.each do |user| %>
-    <%= render @users %>
-  <% end %>
-</ul>
-<%= will_paginate %>
--->
