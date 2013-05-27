@@ -7,38 +7,36 @@ describe "Authentication" do
   describe "signin page" do
     before { visit signin_path }
 
-    it { should have_selector('h1',    text: 'Sign in') }
-    it { should have_selector('title', text: 'Sign in') }
+    it { should have_selector('h1',    text: 'Bienvenidos') }
+    it { should have_selector('title', text: full_title('Bienvenidos')) }
   end
 
   describe "signin" do
     before { visit signin_path }
 
     describe "with invalid information" do
-      before { click_button "Sign in" }
+      before { click_button "Acceder" }
 
-      it { should have_selector('title', text: 'Sign in') }
+      it { should have_selector('title', text: 'Bienvenidos') }
       it { should have_selector('div.alert.alert-error', text: 'Invalid') }
 
       describe "after visiting another page" do
-        before { click_link "Home" }
+        before { click_link "Inicio" }
         it { should_not have_selector('div.alert.alert-error') }
       end
     end
 
     describe "with valid information" do
       let(:usuario) { FactoryGirl.create(:usuario) }
-      before { sign_in user }
-      #before do
-       fill_in "Email",    with: usuario.email.upcase
-        fill_in "Password", with: usuario.password
-        click_button "Sign in"
-      #end
 
-      it { should have_link('Users',    href: usuarios_path) }
+      before do
+        fill_in "Email",    with: usuario.email.upcase
+        fill_in "Password", with: usuario.password
+        click_button "Acceder"
+      end
+
       it { should have_selector('title', text: usuario.username) }
-      it { should have_link('Profile', href: usuario_path(usuario)) }
-      it { should have_link('Settings', href: edit_user_path(usuario)) }
+      it { should have_link('Perfil', href: usuario_path(usuario)) }
       it { should have_link('Sign out', href: signout_path) }
       it { should_not have_link('Sign in', href: signin_path) }
 
@@ -59,7 +57,7 @@ describe "Authentication" do
           visit edit_usuarios_path(usuario)
           fill_in "Email",    with: usuario.email
           fill_in "Password", with: usuario.password
-          click_button "Sign in"
+          click_button "Acceder"
         end
 
         describe "after signing in" do
@@ -74,16 +72,16 @@ describe "Authentication" do
 
         describe "visiting the edit page" do
           before { visit edit_usuario_path(user) }
-          it { should have_selector('title', text: 'Sign in') }
+          it { should have_selector('title', text: 'Bienvenidos') }
         end
 
         describe "submitting to the update action" do
-          before { put usuario_path(user) }
+          before { put usuarios_path(usuario) }
           specify { response.should redirect_to(signin_path) }
         end
         describe "visiting the user index" do
           before { visit usuarios_path }
-          it { should have_selector('title', text: 'Sign in') }
+          it { should have_selector('title', text: 'Bienvenidos') }
         end
       end
     end

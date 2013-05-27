@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Micropost do
 
   let(:usuario) { FactoryGirl.create(:usuario) }
-  before { @micropost = usuario.microposts.build(content: "Lorem ipsum") }
+  before { @micropost = usuario.microposts.build(content: "Ejemplo") }
 
   subject { @micropost }
 
@@ -15,7 +15,7 @@ describe Micropost do
   it { should be_valid }
 
   describe "accessible attributes" do
-    it "should not allow access to user_id" do
+    it "should not allow access to usuario_id" do
       expect do
         Micropost.new(usuario_id: usuario.id)
       end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)

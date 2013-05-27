@@ -45,27 +45,14 @@ class UsuariosController < ApplicationController
   # POST /usuarios
   # POST /usuarios.json
   def create
-    @user = Usuario.new(params[:usuario])
-    if @user.save
-      sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
+    @usuario = Usuario.new(params[:usuario])
+    if @usuario.save
+      sign_in @usuario
+      flash[:success] = "Bienvenido a Twittube!"
+      redirect_to @usuario
     else
       render 'new'
     end
-=begin
-    @usuario = Usuario.new(params[:usuario])
-
-    respond_to do |format|
-      if @usuario.save
-        format.html { redirect_to @usuario, notice: 'Usuario was successfully created.' }
-        format.json { render json: @usuario, status: :created, location: @usuario }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @usuario.errors, status: :unprocessable_entity }
-      end
-    end
-=end
   end
 
   # PUT /usuarios/1

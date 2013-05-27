@@ -17,12 +17,12 @@ describe "User pages" do
     describe "pagination" do
 
       before(:all) { 30.times { FactoryGirl.create(:user) } }
-      after(:all)  { User.delete_all }
+      after(:all)  { Usuario.delete_all }
 
       it { should have_selector('div.pagination') }
 
       it "should list each user" do
-        User.paginate(page: 1).each do |user|
+        Usuario.paginate(page: 1).each do |user|
           page.should have_selector('li', text: user.name)
         end
       end
@@ -38,7 +38,7 @@ describe "User pages" do
           visit users_path
         end
 
-        it { should have_link('delete', href: user_path(User.first)) }
+        it { should have_link('delete', href: user_path(Usuario.first)) }
         it "should be able to delete another user" do
           expect { click_link('delete') }.to change(User, :count).by(-1)
         end
@@ -105,6 +105,7 @@ describe "User pages" do
 
     end
   end
+<<<<<<< HEAD
   describe "edit" do
     let(:user) { FactoryGirl.create(:user) }
     before do
@@ -141,5 +142,8 @@ describe "User pages" do
       specify { user.reload.email.should == new_email }
     end
   end
+=======
+
+>>>>>>> function
 end
 
