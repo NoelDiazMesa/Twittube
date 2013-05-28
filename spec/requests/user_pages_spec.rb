@@ -1,3 +1,4 @@
+#!encoding:UTF-8
 require 'spec_helper'
 
 describe "User pages" do
@@ -79,22 +80,16 @@ describe "User pages" do
     end
 
     describe "with valid information" do
-      let(:new_name)  { "New Name" }
-      let(:new_email) { "new@example.com" }
-      before do
-        fill_in "Name",             with: new_name
-        fill_in "Email",            with: new_email
-        fill_in "Password",         with: usuario.password
-        fill_in "Confirm Password", with: usuario.password
-        click_button "Save changes"
-      end
+      let(:usuario) { FactoryGirl.create(:usuario) }
+      before { sign_in usuario }
 
-      it { should have_selector('title', text: new_name) }
-      it { should have_selector('div.alert.alert-success') }
-      it { should have_link('Sign out', href: signout_path) }
-      specify { expect(usuario.reload.username).to  eq new_name }
-      specify { expect(usuario.reload.email).to eq new_email }
+      it { should have_selector('title', text: usuario.username) }
+      it { should have_link('Perfil',     href: usuario_path(usuario)) }
+      it { should have_link('Configuracion',    href: edit_usuario_path(usuario)) }
+      it { should have_link('Sign out',    href: signout_path) }
+      it { should_not have_link('Sign in', href: signin_path) }
     end
+    
   end
 end
 

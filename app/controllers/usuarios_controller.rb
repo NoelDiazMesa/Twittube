@@ -1,5 +1,4 @@
 class UsuariosController < ApplicationController
-  before_action :signed_in_user, only: [:edit, :update]
   # GET /usuarios
   # GET /usuarios.json
   def index
@@ -58,7 +57,7 @@ class UsuariosController < ApplicationController
     @usuario = Usuario.find(params[:id])
 
     respond_to do |format|
-      if @usuario.update_attributes(user_params) # Cambie params[:usuario] por user_params
+      if @usuario.update_attributes(params[:usuario]) # Cambie params[:usuario] por user_params
         flash[:success] = "Profile updated"
         sign_in @usuario
         redirect_to @usuario
