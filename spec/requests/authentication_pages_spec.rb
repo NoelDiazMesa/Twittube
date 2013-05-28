@@ -36,7 +36,7 @@ describe "Authentication" do
       end
 
       it { should have_selector('title', text: usuario.username) }
-      it { should have_link('Usuarios', href: usuario_path(usuario)) }
+      it { should have_link('Usuarios', href: usuarios_path) }
       it { should have_link('Perfil', href: usuario_path(usuario)) }
       it { should have_link('Configuracion', href: edit_usuario_path(usuario)) }
       it { should have_link('Sign out', href: signout_path) }
@@ -99,8 +99,8 @@ describe "Authentication" do
       describe "in the Users controller" do
         
         describe "visiting the user index" do
-          before { visit usuario_path(usuario) }
-          it { should have_selector('title', text: usuario.username) }
+          before { visit usuarios_path }
+          it { should have_selector('title', text: 'All user') }
         end
       end
     end

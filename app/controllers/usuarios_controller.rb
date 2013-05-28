@@ -2,7 +2,8 @@ class UsuariosController < ApplicationController
   # GET /usuarios
   # GET /usuarios.json
   def index
-    @usuarios = Usuario.all
+    #@usuario = Usuario.all
+    @usuarios = Usuario.paginate(page: params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

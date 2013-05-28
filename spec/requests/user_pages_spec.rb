@@ -10,15 +10,23 @@ describe "User pages" do
       sign_in FactoryGirl.create(:usuario)
       FactoryGirl.create(:usuario, username: "Bob", email: "bob@example.com")
       FactoryGirl.create(:usuario, username: "Ben", email: "ben@example.com")
-      visit usuario_path
+      visit usuarios_path
     end
 
     it { should have_selector('title', text: 'All users') }
     it { should have_content('All users') }
 
-    it "should list each user" do
-      Usuario.all.each do |user|
-        expect(page).to have_selector('li', text: user.name)
+    describe "pagination" do
+
+      before(:all) { 30.times { FactoryGirl.create(:usuario) } }
+      after(:all)  { Usuario.delete_all }
+
+      it { should have_selector('div.pagination') }
+
+      it "should list each user" do
+        Usuario.paginate(page: 1).each do |user|
+          expect(page).to have_selector('li', text: user.username)
+        end
       end
     end
   end
