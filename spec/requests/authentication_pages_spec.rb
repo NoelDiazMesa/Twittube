@@ -47,6 +47,56 @@ describe "Authentication" do
       end
     end
   end
+
+  describe "authorization" do
+
+    describe "for non-signed-in users" do
+      let(:usuario) { FactoryGirl.create(:usuario) }
+
+      describe "in the Users controller" do
+
+        describe "visiting the edit page" do
+          before { visit edit_usuario_path(usuario) }
+          it { should have_selector('title', text: 'Edit user') }
+        end
+
+        #describe "submitting to the update action" do
+        #  before { patch usuario_path(usuario) }
+        #  specify { expect(response).to redirect_to(signin_path) }
+        #end
+        describe "as wrong user" do
+          let(:usuario) { FactoryGirl.create(:usuario) }
+          let(:wrong_user) { FactoryGirl.create(:usuario, email: "wrong@example.com") }
+          before { sign_in usuario }
+
+          describe "visiting Users#edit page" do
+           before { visit edit_usuario_path(wrong_user) }
+            it {  should have_selector('title', text: 'Edit user')}
+          end
+        end
+      end
+    end
+
+    describe "for non-signed-in users" do
+      let(:usuario) { FactoryGirl.create(:usuario) }
+
+      describe "when attempting to visit a protected page" do
+        before do
+          visit edit_usuario_path(usuario)
+          fill_in "Email",    with: usuario.email
+          fill_in "Password", with: usuario.password
+          click_button "Save changes"
+        end
+
+        describe "after signing in" do
+
+          it "should render the desired protected page" do
+            expect(page).to have_selector('title', text: 'Edit user')
+          end
+        end
+      end
+    end
+  end
 end
 
 
