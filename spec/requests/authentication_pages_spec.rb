@@ -28,6 +28,7 @@ describe "Authentication" do
 
     describe "with valid information" do
       let(:usuario) { FactoryGirl.create(:usuario) }
+      #before { sign_in user }  // Comentado por que se deberia añadir esto.
       before do
         fill_in "Email",    with: usuario.email.upcase
         fill_in "Password", with: usuario.password
@@ -36,6 +37,7 @@ describe "Authentication" do
 
       it { should have_selector('title', text: usuario.username) }
       it { should have_link('Perfil', href: usuario_path(usuario)) }
+      it { should have_link('Configuracion', href: edit_usuario_path(usuario)) }
       it { should have_link('Sign out', href: signout_path) }
       it { should_not have_link('Sign in', href: signin_path) }
 
