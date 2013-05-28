@@ -1,4 +1,5 @@
 class UsuariosController < ApplicationController
+  before_filter :admin_user,  only: :destroy
   # GET /usuarios
   # GET /usuarios.json
   def index
@@ -15,13 +16,19 @@ class UsuariosController < ApplicationController
   # GET /usuarios/1.json
   def show
     @usuario = Usuario.find(params[:id])
-    @title = @usuario.username
-    
+
+    #@title = @usuario.username
+
+    @microposts = @usuario.microposts
+    @microposts = @microposts.paginate(page: params[:page])
+  end 
+
+=begin
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @usuario }
     end
-  end
+=end
 
   # GET /usuarios/new
   # GET /usuarios/new.json
@@ -76,7 +83,8 @@ class UsuariosController < ApplicationController
   def destroy
     @usuario = Usuario.find(params[:id])
     @usuario.destroy
-
+    flash[:success] = "User destroyed."
+    # redirect_to usuarios_url
     respond_to do |format|
       format.html { redirect_to usuarios_url }
       format.json { head :no_content }
@@ -98,6 +106,9 @@ class UsuariosController < ApplicationController
     def correct_user
       @user = Usuario.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
+    end
+    def admin_user
+      redirect_to(root_path) unless current_user.admin?
     end
 
 end

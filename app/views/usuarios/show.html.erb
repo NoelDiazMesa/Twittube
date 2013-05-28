@@ -10,6 +10,20 @@
 		      </h1>
     </section>
   </aside>
+  <div class="span8">
+    <% if @usuario.microposts.any? %>
+      <h3>Microposts (<%= @usuario.microposts.count %>)</h3>
+      <ol class="microposts">
+        <li>
+            <span class="content"><%= microposts.content %></span>
+            <span class="timestamp">
+            Posted <%= time_ago_in_words(microposts.created_at) %> ago.
+            </span>
+        </li>
+      </ol>
+      <%= will_paginate @microposts %>
+    <% end %>
+  </div>
 </div>
 
 		<p id="notice"><%= notice %></p>

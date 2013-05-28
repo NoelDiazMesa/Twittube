@@ -3,6 +3,7 @@ Twittube::Application.routes.draw do
   resources :post
   resources :usuarios_sessions
   resources :sessions, only: [:new, :create, :destroy]
+  resources :microposts, only: [:create, :destroy]
 
   root :to => 'sessions#new'  
   
