@@ -5,6 +5,24 @@ describe "User pages" do
 
   subject { page }
 
+  describe "index" do
+    before do
+      sign_in FactoryGirl.create(:usuario)
+      FactoryGirl.create(:usuario, username: "Bob", email: "bob@example.com")
+      FactoryGirl.create(:usuario, username: "Ben", email: "ben@example.com")
+      visit usuario_path
+    end
+
+    it { should have_selector('title', text: 'All users') }
+    it { should have_content('All users') }
+
+    it "should list each user" do
+      Usuario.all.each do |user|
+        expect(page).to have_selector('li', text: user.name)
+      end
+    end
+  end
+
   describe "signup page" do
     before { visit signup_path }
 
@@ -89,7 +107,7 @@ describe "User pages" do
       it { should have_link('Sign out',    href: signout_path) }
       it { should_not have_link('Sign in', href: signin_path) }
     end
-    
+
   end
 end
 
