@@ -45,7 +45,7 @@ describe "User pages" do
         it "should be able to delete another user" do
           expect { click_link('delete') }.to change(Usuario, :count).by(-1)
         end
-        it { should_not have_link('delete', href: usuario_path(admin)) }
+        it { should_not have_link('delete', href: usuarios_path(admin)) }
       end
     end
 
@@ -59,7 +59,7 @@ describe "User pages" do
     it { should have_selector('title', text: full_title('Sing up')) }
   end
 
-  describe "profile page" do
+   describe "profile page" do
     let(:usuario) { FactoryGirl.create(:usuario) }
     let!(:m1) { FactoryGirl.create(:micropost, usuario: usuario, content: "Foo") }
     let!(:m2) { FactoryGirl.create(:micropost, usuario: usuario, content: "Bar") }
@@ -72,7 +72,7 @@ describe "User pages" do
     describe "microposts" do
       it { should have_content(m1.content) }
       it { should have_content(m2.content) }
-      it { should have_content(usuario.micropost.count) }
+      it { should have_content(usuario.microposts.count) }
     end
   end
 
@@ -127,12 +127,11 @@ describe "User pages" do
     describe "page" do
       it { should have_content("Update your profile") }
       it { should have_selector('title', text: full_title('Edit user'))}
-      it { should have_link('change', href: 'http://gravatar.com/emails') }
+      it { should have_link('Cambiar', href: 'http://gravatar.com/emails') }
     end
 
     describe "with invalid information" do
-      before { click_button "Save changes" }
-
+      before { click_button "Guardar cambios" }
       it { should have_content('error') }
     end
 
@@ -143,8 +142,8 @@ describe "User pages" do
       it { should have_selector('title', text: usuario.username) }
       it { should have_link('Perfil',     href: usuario_path(usuario)) }
       it { should have_link('Configuracion',    href: edit_usuario_path(usuario)) }
-      it { should have_link('Sign out',    href: signout_path) }
-      it { should_not have_link('Sign in', href: signin_path) }
+      it { should have_link('Cerrar Sesion',    href: signout_path) }
+      it { should_not have_link('Iniciar Sesion', href: signin_path) }
     end
 
   end

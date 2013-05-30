@@ -5,8 +5,8 @@ gem 'bootstrap-sass', '2.1'
 gem 'gravatar_image_tag', '1.0.0.pre2'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'faker', '1.1.2'
-gem 'will_paginate', '3.0.4'
-gem 'bootstrap-will_paginate', '0.0.9'
+gem 'will_paginate', '3.0.3'
+gem 'bootstrap-will_paginate', '0.0.6'
 
 
 

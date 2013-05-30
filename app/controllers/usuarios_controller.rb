@@ -1,53 +1,28 @@
 class UsuariosController < ApplicationController
-  before_filter :admin_user,  only: :destroy
-  # GET /usuarios
-  # GET /usuarios.json
-  def index
-    #@usuario = Usuario.all
-    @usuarios = Usuario.paginate(page: params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @usuarios }
-    end
-  end
-
-  # GET /usuarios/1
-  # GET /usuarios/1.json
-  def show
-    @usuario = Usuario.find(params[:id])
-
-    #@title = @usuario.username
-
-    @microposts = @usuario.microposts
-    @microposts = @microposts.paginate(page: params[:page])
-  end 
-
+  #before_filter :signed_in_user, 
+  #            only: [:index, :edit, :update, :following, :followers] 
+  
+  #before_filter :correct_user,   only: [:edit, :update]
+  #before_filter :admin_user,     only: :destroy
 =begin
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @usuario }
-    end
-=end
-
-  # GET /usuarios/new
-  # GET /usuarios/new.json
-  def new
-    @usuario = Usuario.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @usuario }
-    end
-  end
-
-  # GET /usuarios/1/edit
-  def edit
+  def following
+    @title = "Following"
     @usuario = Usuario.find(params[:id])
+    @usuarios = @usuario.followed_usuarios.paginate(page: params[:page])
+    render 'show_follow'
   end
 
-  # POST /usuarios
-  # POST /usuarios.json
+  def followers
+    @title = "Followers"
+    @usuario = Usuario.find(params[:id])
+    @usuarios = @usuario.followers.paginate(page: params[:page])
+    render 'show_follow'
+  end
+=end  
+  def index
+    @usuarios = Usuario.paginate(page: params[:page])
+  end
+  
   def create
     @usuario = Usuario.new(params[:usuario])
     if @usuario.save
@@ -58,57 +33,57 @@ class UsuariosController < ApplicationController
       render 'new'
     end
   end
+  
+  def show
+    @usuario = Usuario.find(params[:id])
+    @microposts = @usuario.microposts.paginate(page: params[:page])
+  end
 
-  # PUT /usuarios/1
-  # PUT /usuarios/1.json
+  
+  def new
+    @usuario = Usuario.new
+  end
+  
+  def edit
+    @usuario = Usuario.find(params[:id])
+  end
+
   def update
     @usuario = Usuario.find(params[:id])
-
-    respond_to do |format|
-      if @usuario.update_attributes(params[:usuario]) # Cambie params[:usuario] por user_params
-        flash[:success] = "Profile updated"
-        sign_in @usuario
-        redirect_to @usuario
-        format.html { redirect_to @usuario, notice: 'Usuario was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @usuario.errors, status: :unprocessable_entity }
-      end
+    if @usuario.update_attributes(params[:usuario])
+      flash[:success] = "Profile updated"
+      sign_in @usuario
+      redirect_to @usuario
+    else
+      render 'edit'
     end
   end
-
-  # DELETE /usuarios/1
-  # DELETE /usuarios/1.json
+  
   def destroy
-    @usuario = Usuario.find(params[:id])
-    @usuario.destroy
-    flash[:success] = "User destroyed."
-    # redirect_to usuarios_url
-    respond_to do |format|
-      format.html { redirect_to usuarios_url }
-      format.json { head :no_content }
-    end
+    Usuario.find(params[:id]).destroy
+    flash[:success] = "usuario destroyed."
+    redirect_to usuarios_path
   end
-
+  
   private
-
     def user_params
       params.require(:usuario).permit(:username, :email, :password,
                                    :password_confirmation)
     end
-
-    # Before filters
-
     def signed_in_user
-      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+      unless signed_in?
+        store_location
+        redirect_to signin_path, notice: "Please sign in."
+      end
     end
+
     def correct_user
-      @user = Usuario.find(params[:id])
-      redirect_to(root_path) unless current_user?(@user)
+      @usuario = Usuario.find(params[:id])
+      redirect_to(root_path) unless current_user?(@usuario)
     end
+    
     def admin_user
       redirect_to(root_path) unless current_user.admin?
     end
-
 end
+

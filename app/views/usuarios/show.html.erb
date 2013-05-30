@@ -1,43 +1,24 @@
 <% provide(:title, @usuario.username) %>
 <h1><%= @usuario.username %></h1>
-
 <div class="row">
   <aside class="span4">
     <section>
-      <h1>
- 		 	<%= gravatar_for @usuario %>
-  		<%= @usuario.username %>
-		      </h1>
+      <h5>
+      <%= gravatar_for @usuario %>
+      <%= @usuario.username %>
+      <%= @usuario.email %>
+      </h5>
     </section>
   </aside>
-  <div class="span8">
+    <div class="span8">    
     <% if @usuario.microposts.any? %>
       <h3>Microposts (<%= @usuario.microposts.count %>)</h3>
       <ol class="microposts">
-        <li>
-            <span class="content"><%= microposts.content %></span>
-            <span class="timestamp">
-            Posted <%= time_ago_in_words(microposts.created_at) %> ago.
-            </span>
-        </li>
+        <%= render @microposts %>
       </ol>
       <%= will_paginate @microposts %>
     <% end %>
   </div>
 </div>
 
-		<p id="notice"><%= notice %></p>
-
-		<p>
-  			<b>Nombre:</b>
-  			<%= @usuario.username %></br>
-  			<b>Email:</b>
-  			<%= @usuario.email %>
-		</p>
-	</td>
-   </tr>
-</table>
-
-<%= link_to 'Edit', edit_usuario_path(@usuario) %> |
-<%= link_to 'Back', usuarios_path %>
 
