@@ -1,8 +1,8 @@
-@import "bootstrap";
+/* @import "bootstrap"; */
 
 /* mixins, variables, etc. */
 
-$grayMediumLight: #eaeaea;
+/* $grayMediumLight: #eaeaea; */
 
 @mixin box_sizing {
   -moz-box-sizing: border-box; 
@@ -51,7 +51,7 @@ h1 {
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
-  color: white;
+  color: #F27B1A;
 }
 
 h2 {
@@ -60,26 +60,25 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: $grayLight;
+  color: #C6C6C6;
 }
 
-h4 {
-  font-size: 1.2em;
-  letter-spacing: -1px;
-  margin-bottom: 30px;
-  text-align: center;
-  font-weight: normal;
-  color: white;
-}
-
-h1 {
-  font-size: 1.5em;
+h6 {
+  font-size: 2em;
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
-  color: white;
+  color: #F27B1A;
 }
 
+h4 {
+  font-size: 1em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: left;
+  font-weight: normal;
+  color: white;
+}
 
 p {
   font-size: 1.1em;
@@ -110,12 +109,12 @@ p {
 footer {
   margin-top: 45px;
   padding-top: 5px;
-  border-top: 1px solid $grayMediumLight;
-  color: $grayLight;
+  border-top: 1px solid #C6C6C6;
+  color: #C6C6C6;
   a {
-    color: $gray;
+    color: #C6C6C6;
     &:hover { 
-      color: $grayDarker;
+      color: #C6C6C6;
     }
   }  
   small { 
@@ -134,7 +133,7 @@ footer {
 /* User show page */
 
 table.profile {
-  width: 80%;
+  width: 100%;
   margin-bottom: 0;
 }
 
@@ -160,7 +159,7 @@ td.sidebar {
 aside {
   section {
     padding: 10px 0;
-    border-top: 1px solid $grayLighter;
+    border-top: 1px solid #C6C6C6;
     &:first-child {
       border: 0;
       padding-top: 0;
@@ -230,9 +229,9 @@ input {
   li {
     overflow: auto;
     padding: 10px 0;
-    border-top: 1px solid $grayLighter;
+    border-top: 1px solid #C6C6C6;
     &:last-child {
-      border-bottom: 1px solid $grayLighter;
+      border-bottom: 1px solid #C6C6C6;
     }
   }
 }
@@ -252,7 +251,7 @@ input {
   display: block;
 }
 .timestamp {
-  color: $grayLight;
+  color: #C6C6C6;
 }
 .gravatar {
   float: left;

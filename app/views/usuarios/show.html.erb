@@ -12,7 +12,7 @@
   </aside>
     <div class="span8">    
     <% if @usuario.microposts.any? %>
-      <h3>Microposts (<%= @usuario.microposts.count %>)</h3>
+      <h3>Twittubits: (<%= @usuario.microposts.count %>)</h3>
       <ol class="microposts">
         <%= render @microposts %>
       </ol>

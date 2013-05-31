@@ -125,7 +125,7 @@ describe "User pages" do
     before { visit edit_usuario_path(usuario) }
 
     describe "page" do
-      it { should have_content("Update your profile") }
+      it { should have_content("Actualiza tu perfil") }
       it { should have_selector('title', text: full_title('Edit user'))}
       it { should have_link('Cambiar', href: 'http://gravatar.com/emails') }
     end

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
-gem 'bootstrap-sass', '2.1'
+#gem 'bootstrap-sass', '2.1'
 gem 'gravatar_image_tag', '1.0.0.pre2'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'faker', '1.1.2'

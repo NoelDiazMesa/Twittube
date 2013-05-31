@@ -35,6 +35,11 @@ class UsuariosController < ApplicationController
   end
   
   def show
+    @url = "http://www.youtube.com/watch?v=LMDuLs5QsZE"
+    @url = @url.split('=')
+    @url = @url[1]
+    
+    @video = "Km4sWmBSTcs"
     @usuario = Usuario.find(params[:id])
     @microposts = @usuario.microposts.paginate(page: params[:page])
   end
