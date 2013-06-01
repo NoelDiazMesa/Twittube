@@ -7,15 +7,15 @@ describe "Static pages" do
   describe "Home page" do
     before { visit home_path }
 
-    it { should have_selector('h1',    text: 'Bienvenido') }
+    it { should have_selector('h1',    text: 'Twittube') }
     it { should have_selector('title', text: full_title('')) }
     it { should_not have_selector 'title', text: 'Twittube | Homepage' }
 
     describe "for signed-in users" do
       let(:usuario) { FactoryGirl.create(:usuario) }
       before do
-        FactoryGirl.create(:micropost, usuario: usuario, content: "Lorem ipsum")
-        FactoryGirl.create(:micropost, usuario: usuario, content: "Dolor sit amet")
+        FactoryGirl.create(:micropost, usuario: usuario, content: "Lorem ipsum", titulo: "Lorem ipsum")
+        FactoryGirl.create(:micropost, usuario: usuario, content: "Dolor sit amet", titulo: "Dolor sit amet")
         sign_in usuario
         visit root_path
       end
@@ -31,7 +31,7 @@ describe "Static pages" do
   describe "Help page" do
     before { visit help_path }
 
-    it { should have_selector('h1',    text: 'Help') }
+    it { should have_selector('h1',    text: 'Pagina de ayuda') }
     it { should have_selector('title', text: full_title('Help')) }
   end
 

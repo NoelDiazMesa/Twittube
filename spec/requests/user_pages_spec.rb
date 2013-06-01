@@ -41,11 +41,11 @@ describe "User pages" do
           visit usuarios_path
         end
 
-        it { should have_link('delete', href: usuarios_path(Usuario.first)) }
+        it { should have_link('delete', href: usuario_path(Usuario.first)) }
         it "should be able to delete another user" do
           expect { click_link('delete') }.to change(Usuario, :count).by(-1)
         end
-        it { should_not have_link('delete', href: usuarios_path(admin)) }
+        it { should_not have_link('delete', href: usuario_path(admin)) }
       end
     end
 
@@ -55,14 +55,14 @@ describe "User pages" do
   describe "signup page" do
     before { visit signup_path }
 
-    it { should have_selector('h1',    text: 'Sing up') }
+    it { should have_selector('h1',    text: 'Registrate') }
     it { should have_selector('title', text: full_title('Sing up')) }
   end
 
    describe "profile page" do
     let(:usuario) { FactoryGirl.create(:usuario) }
-    let!(:m1) { FactoryGirl.create(:micropost, usuario: usuario, content: "Foo") }
-    let!(:m2) { FactoryGirl.create(:micropost, usuario: usuario, content: "Bar") }
+    let!(:m1) { FactoryGirl.create(:micropost, usuario: usuario, content: "Foo", titulo: "Foo") }
+    let!(:m2) { FactoryGirl.create(:micropost, usuario: usuario, content: "Bar", titulo: "Bar") }
 
     before { visit usuario_path(usuario) }
 

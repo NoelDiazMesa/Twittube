@@ -13,6 +13,7 @@ FactoryGirl.define do
 
   factory :micropost do
     content "Lorem ipsum"
+    titulo "Lorem ipsum"
     usuario
   end
 end

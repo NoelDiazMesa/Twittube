@@ -1,5 +1,5 @@
 class Usuario < ActiveRecord::Base
-  attr_accessible :username, :email, :password, :password_confirmation , :password_digest
+  attr_accessible :username, :email, :password, :password_confirmation , :admin 
 
   #authenticates_with_sorcery!
   #validates_confirmation_of :password, message: " Ambos campos deben coincidir ", if: :password

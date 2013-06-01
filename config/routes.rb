@@ -16,14 +16,7 @@ Twittube::Application.routes.draw do
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
   match '/form',    to: 'static_pages#form'
-
-
-
-
-  
-
   match '/login' => 'usuarios_sessions#new', as: :login
-
   match '/logout' => 'usuarios_sessions#destroy', as: :logout
 
 
