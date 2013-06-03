@@ -15,16 +15,11 @@ describe "Static pages" do
       let(:usuario) { FactoryGirl.create(:usuario) }
       before do
         FactoryGirl.create(:micropost, usuario: usuario, content: "http://www.youtube.com/watch?v=9nqr8BSvoz0", titulo: "Lorem ipsum")
-        FactoryGirl.create(:micropost, usuario: usuario, content: "http://www.youtube.com/watch?v=9nqrbgrvoz0", titulo: "Dolor sit amet")
+        FactoryGirl.create(:micropost, usuario: usuario, content: "http://www.youtube.com/watch?v=xxxxxxxxxxx", titulo: "Dolor sit amet")
         sign_in usuario
         visit root_path
       end
 
-      it "should render the user's feed" do
-        usuario.feed.each do |item|
-          page.should have_selector("li##{item.id}", text: item.content)
-        end
-      end
       describe "follower/following counts" do
         let(:other_user) { FactoryGirl.create(:usuario) }
         before do
