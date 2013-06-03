@@ -166,9 +166,9 @@ describe Usuario do
         FactoryGirl.create(:micropost, usuario: FactoryGirl.create(:usuario))
       end
 
-      its(:feedMicro) { should include(newer_micropost) }
-      its(:feedMicro) { should include(older_micropost) }
-      its(:feedMicro) { should_not include(unfollowed_post) }
+      its(:feed) { should include(newer_micropost) }
+      its(:feed) { should include(older_micropost) }
+      its(:feed) { should_not include(unfollowed_post) }
     end
   end
   describe "following" do

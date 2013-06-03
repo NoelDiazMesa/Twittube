@@ -25,12 +25,9 @@ class Usuario < ActiveRecord::Base
   					           :length => { :within => 6..40 }
   validates :password_confirmation, presence: true
   def feed
-    Micropost.where("usuario_id = ?", id)
-  end
-  def feedMicro
     Micropost.from_users_followed_by(self)
   end
-
+  
   def following?(other_user)
     relationships.find_by_followed_id(other_user.id)
   end

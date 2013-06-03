@@ -1,4 +1,4 @@
-<% provide(:title, "Bienvenidos") %>
+<% provide(:title, "Bienvenido") %>
 <h1>Bienvenido a Twittube</h1>
 
 <div class="row">
@@ -11,7 +11,7 @@
       <%= f.label :password %>
       <%= f.password_field :password %>
 
-      <%= f.submit "Acceder", class: "btn btn-large btn-primary" %>
+      <%= f.submit "Acceder", class: "btn btn-large btn-warning" %>
     <% end %>
 
     <p>¿ Eres nuevo ?  <%= link_to "Registrate ahora!", signup_path %></p>

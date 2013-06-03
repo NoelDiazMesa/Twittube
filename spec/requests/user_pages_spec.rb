@@ -40,11 +40,11 @@ describe "User pages" do
           visit usuarios_path
         end
 
-        it { should have_link('delete', href: usuario_path(Usuario.first)) }
+        it { should have_link('Eliminar', href: usuario_path(Usuario.first)) }
         it "should be able to delete another user" do
-          expect { click_link('delete') }.to change(Usuario, :count).by(-1)
+          expect { click_link('Eliminar') }.to change(Usuario, :count).by(-1)
         end
-        it { should_not have_link('delete', href: usuario_path(admin)) }
+        it { should_not have_link('Eliminar', href: usuario_path(admin)) }
       end
     end
 

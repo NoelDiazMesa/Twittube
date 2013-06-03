@@ -7,8 +7,8 @@ describe "Authentication" do
   describe "signin page" do
     before { visit signin_path }
 
-    it { should have_selector('h1',    text: 'Bienvenidos') }
-    it { should have_selector('title', text: full_title('Bienvenidos')) }
+    it { should have_selector('h1',    text: 'Bienvenido a Twittube') }
+    it { should have_selector('title', text: full_title('Bienvenido')) }
   end
 
   describe "signin" do
@@ -17,7 +17,7 @@ describe "Authentication" do
     describe "with invalid information" do
       before { click_button "Acceder" }
 
-      it { should have_selector('title', text: 'Bienvenidos') }
+      it { should have_selector('title', text: 'Bienvenido') }
       it { should have_selector('div.alert.alert-error', text: 'Invalid') }
 
       describe "after visiting another page" do
