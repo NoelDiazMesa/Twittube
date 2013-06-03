@@ -1,6 +1,7 @@
 <li>
   <span class="content"><%= micropost.titulo %></span>
   <iframe width="620" height="300" src="http://www.youtube.com/embed/<%= micropost.content.split('=').last %>" frameborder="0" allowfullscreen></iframe>
+  <span class="content"><%= micropost.comentario %></span>
   <span class="timestamp">
     Publicado: <%= time_ago_in_words(micropost.created_at) %> ago.
   </span>

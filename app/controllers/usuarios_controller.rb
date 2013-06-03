@@ -1,24 +1,9 @@
 class UsuariosController < ApplicationController
   #before_filter :signed_in_user, 
-  #            only: [:index, :edit, :update, :following, :followers] 
-  
+  #              only: [:index, :edit, :update, :destroy, :following, :followers]
   #before_filter :correct_user,   only: [:edit, :update]
   #before_filter :admin_user,     only: :destroy
-=begin
-  def following
-    @title = "Following"
-    @usuario = Usuario.find(params[:id])
-    @usuarios = @usuario.followed_usuarios.paginate(page: params[:page])
-    render 'show_follow'
-  end
-
-  def followers
-    @title = "Followers"
-    @usuario = Usuario.find(params[:id])
-    @usuarios = @usuario.followers.paginate(page: params[:page])
-    render 'show_follow'
-  end
-=end  
+ 
   def index
     @usuarios = Usuario.paginate(page: params[:page])
   end
@@ -35,11 +20,6 @@ class UsuariosController < ApplicationController
   end
   
   def show
-    @url = "http://www.youtube.com/watch?v=LMDuLs5QsZE"
-    @url = @url.split('=')
-    @url = @url[1]
-    
-    @video = "Km4sWmBSTcs"
     @usuario = Usuario.find(params[:id])
     @microposts = @usuario.microposts.paginate(page: params[:page])
   end
@@ -68,6 +48,20 @@ class UsuariosController < ApplicationController
     Usuario.find(params[:id]).destroy
     flash[:success] = "usuario destroyed."
     redirect_to usuarios_path
+  end
+
+  def following
+    @title = "Following"
+    @usuario = Usuario.find(params[:id])
+    @usuarios = @usuario.followed_users.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @usuario = Usuario.find(params[:id])
+    @usuarios = @usuario.followers.paginate(page: params[:page])
+    render 'show_follow'
   end
   
   private

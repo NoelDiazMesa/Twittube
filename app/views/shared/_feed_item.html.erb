@@ -3,10 +3,11 @@
   <span class="user">
     <%= link_to feed_item.usuario.username, feed_item.usuario %>
   </span>
-  <span class="content"><%= feed_item.titulo %></span>
+  <span class="content"><%= feed_item.titulo %></span><br><br><br>
   <iframe width="620" height="300" src="http://www.youtube.com/embed/<%= feed_item.content.split('=').last %>" frameborder="0" allowfullscreen></iframe>
   <span class="timestamp">
-    Posted <%= time_ago_in_words(feed_item.created_at) %> ago.
+  <span class="content"><%= feed_item.comentario %></span>
+    Publicado: <%= time_ago_in_words(feed_item.created_at) %> ago.
   </span>
    <% if current_user?(feed_item.usuario) %>
     <%= link_to "delete", feed_item, method: :delete,

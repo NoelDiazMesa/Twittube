@@ -14,8 +14,8 @@ describe "Static pages" do
     describe "for signed-in users" do
       let(:usuario) { FactoryGirl.create(:usuario) }
       before do
-        FactoryGirl.create(:micropost, usuario: usuario, content: "Lorem ipsum", titulo: "Lorem ipsum")
-        FactoryGirl.create(:micropost, usuario: usuario, content: "Dolor sit amet", titulo: "Dolor sit amet")
+        FactoryGirl.create(:micropost, usuario: usuario, content: "http://www.youtube.com/watch?v=9nqr8BSvoz0", titulo: "Lorem ipsum")
+        FactoryGirl.create(:micropost, usuario: usuario, content: "http://www.youtube.com/watch?v=9nqrbgrvoz0", titulo: "Dolor sit amet")
         sign_in usuario
         visit root_path
       end
@@ -24,6 +24,16 @@ describe "Static pages" do
         usuario.feed.each do |item|
           page.should have_selector("li##{item.id}", text: item.content)
         end
+      end
+      describe "follower/following counts" do
+        let(:other_user) { FactoryGirl.create(:usuario) }
+        before do
+          other_user.follow!(usuario)
+          visit root_path
+        end
+
+        it { should have_link("0 following", href: following_usuario_path(usuario)) }
+        it { should have_link("1 followers", href: followers_usuario_path(usuario)) }
       end
     end
   end

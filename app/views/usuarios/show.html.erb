@@ -3,14 +3,25 @@
 <div class="row">
   <aside class="span4">
     <section>
-      <h5>
+      <h4> Perfil de <%= @usuario.username %></h4>
+    </section>
+    <section>
+      <h4>
       <%= gravatar_for @usuario %>
-      <%= @usuario.username %>
+      Usuario: <br>
+      <%= @usuario.username %><br>
+      Email: <br>
       <%= @usuario.email %>
-      </h5>
+      </h4>
+    </section>
+      <section>
+      <%= render 'shared/stats' %>
+    </section>
+    <section>
     </section>
   </aside>
-    <div class="span8">    
+    <div class="span8"> 
+    <%= render 'follow_form' if signed_in? %>   
     <% if @usuario.microposts.any? %>
       <h3>Twittubits: (<%= @usuario.microposts.count %>)</h3>
       <ol class="microposts">

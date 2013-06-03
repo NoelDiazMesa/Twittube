@@ -1,9 +1,11 @@
 <%= form_for(@micropost) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-  	<h4> Introduce la URL del video que quieres publicar:<%= f.text_field :content, placeholder: "Inserta un nuevo video..." %>  
-  	Introduce el titulo del video:<%= f.text_field :titulo, placeholder: "Inserta un titulo..." %>  
-  	<%= f.submit "Post", class: "btn btn-large btn-primary" %> </h4> 
+  <h4> Introduce el titulo del video:<%= f.text_field :titulo, placeholder: "Inserta un titulo..." %> 
+  	   Introduce la URL del video que quieres publicar:<%= f.text_field :content, placeholder: "Inserta un nuevo video..." %>  
+  	   Introduce un comentario sobre el video (opcional):<%= f.text_area :comentario, placeholder:"Inserta un comentario..." %>  
+  	<%= f.submit "Publicar", class: "btn btn-large btn-warning" %> </h4> 
   </div>
+
 <% end %>
 

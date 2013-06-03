@@ -59,10 +59,10 @@ describe "User pages" do
     it { should have_selector('title', text: full_title('Sing up')) }
   end
 
-   describe "profile page" do
+  describe "profile page" do
     let(:usuario) { FactoryGirl.create(:usuario) }
-    let!(:m1) { FactoryGirl.create(:micropost, usuario: usuario, content: "Foo", titulo: "Foo") }
-    let!(:m2) { FactoryGirl.create(:micropost, usuario: usuario, content: "Bar", titulo: "Bar") }
+    let!(:m1) { FactoryGirl.create(:micropost, usuario: usuario, content: "http://www.youtube.com/watch?v=yyyyyyyyyyy", titulo: "Foo") }
+    let!(:m2) { FactoryGirl.create(:micropost, usuario: usuario, content: "http://www.youtube.com/watch?v=zzzzzzzzzzz", titulo: "Bar") }
 
     before { visit usuario_path(usuario) }
 
@@ -73,6 +73,56 @@ describe "User pages" do
       it { should have_content(m1.content) }
       it { should have_content(m2.content) }
       it { should have_content(usuario.microposts.count) }
+    end
+
+    describe "follow/unfollow buttons" do
+      let(:other_user) { FactoryGirl.create(:usuario) }
+      before { sign_in usuario }
+
+      describe "following a user" do
+        before { visit usuario_path(other_user) }
+
+        it "should increment the followed user count" do
+          expect do
+            click_button "Follow"
+          end.to change(usuario.followed_users, :count).by(1)
+        end
+
+        it "should increment the other user's followers count" do
+          expect do
+            click_button "Follow"
+          end.to change(other_user.followers, :count).by(1)
+        end
+
+        describe "toggling the button" do
+          before { click_button "Follow" }
+          it { should have_selector('input', value: 'Unfollow') }
+        end
+      end
+
+      describe "unfollowing a user" do
+        before do
+          usuario.follow!(other_user)
+          visit usuario_path(other_user)
+        end
+
+        it "should decrement the followed user count" do
+          expect do
+            click_button "Unfollow"
+          end.to change(usuario.followed_users, :count).by(-1)
+        end
+
+        it "should decrement the other user's followers count" do
+          expect do
+            click_button "Unfollow"
+          end.to change(other_user.followers, :count).by(-1)
+        end
+
+        describe "toggling the button" do
+          before { click_button "Unfollow" }
+          it { should have_selector('input', value: 'Follow') }
+        end
+      end
     end
   end
 
@@ -147,5 +197,31 @@ describe "User pages" do
     end
 
   end
-end
+  describe "following/followers" do
+    let(:usuario) { FactoryGirl.create(:usuario) }
+    let(:other_user) { FactoryGirl.create(:usuario) }
+    before { usuario.follow!(other_user) }
 
+    describe "followed users" do
+      before do
+        sign_in usuario
+        visit following_usuario_path(usuario)
+      end
+
+      it { should have_selector('title', text: full_title('Following')) }
+      it { should have_selector('h3', text: 'Following') }
+      it { should have_link(other_user.username, href: usuario_path(other_user)) }
+    end
+
+    describe "followers" do
+      before do
+        sign_in other_user
+        visit followers_usuario_path(other_user)
+      end
+
+      it { should have_selector('title', text: full_title('Followers')) }
+      it { should have_selector('h3', text: 'Followers') }
+      it { should have_link(usuario.username, href: usuario_path(usuario)) }
+    end
+  end
+end

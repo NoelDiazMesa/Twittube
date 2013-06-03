@@ -12,7 +12,7 @@ FactoryGirl.define do
   end
 
   factory :micropost do
-    content "Lorem ipsum"
+    content "http://www.youtube.com/watch?v=xxxxxxxxxxx"
     titulo "Lorem ipsum"
     usuario
   end
