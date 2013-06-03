@@ -6,11 +6,11 @@
   <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
   Css application.
 </p>
-<%= form_tag :action => 'form' do %>  				<!-- Así empezamos un bloque de codigo en Ruby -->
+<%= form_tag :action => 'form' do %>  		<!-- Así empezamos un bloque de codigo en Ruby -->
 <p>Nombre: 
-<%= text_field_tag 'nombre_usuario', @name %> </p>  <!-- text_field_tag nos abre un recuadro para introducir datos -->
-<%= submit_tag 'Registrarse' %>						<!-- submit_tag nos crea un bottom con el texto 'Registrarse' -->
+<%= text_field_tag 'nombre_usuario', @name %> </p><!-- text_field_tag nos abre un recuadro para introducir datos -->
+<%= submit_tag 'Registrarse' %>			<!-- submit_tag nos crea un bottom con el texto 'Registrarse' -->
 <% @nombre.each do |n| %>
 <p> <%= n.name %> </p>
 <% end %>
-<% end %>											<!-- Así acabamos el bloque de codigo en Ruby -->
+<% end %>								<!-- Así acabamos el bloque de codigo en Ruby -->
