@@ -7,12 +7,13 @@ FactoryGirl.define do
     password_confirmation "foobar"
 
     factory :admin do
-      admin true
+      admin true 
     end
   end
 
   factory :micropost do
-    content "Lorem ipsum"
+    content "http://www.youtube.com/watch?v=xxxxxxxxxxx"
+    titulo "Lorem ipsum"
     usuario
   end
 end

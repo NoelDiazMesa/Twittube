@@ -1,10 +1,14 @@
 class Usuario < ActiveRecord::Base
-  attr_accessible :username, :email, :password, :password_confirmation , :password_digest
-
-  #authenticates_with_sorcery!
-  #validates_confirmation_of :password, message: " Ambos campos deben coincidir ", if: :password
+  attr_accessible :username, :email, :password, :password_confirmation , :admin 
   has_secure_password
   has_many :microposts, dependent: :destroy
+  has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  has_many :followed_users, through: :relationships, source: :followed
+
+  has_many :reverse_relationships, foreign_key: "followed_id",
+                                   class_name:  "Relationship",
+                                   dependent:   :destroy
+  has_many :followers, through: :reverse_relationships, source: :follower
 
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
@@ -20,6 +24,23 @@ class Usuario < ActiveRecord::Base
   					           :confirmation => true,
   					           :length => { :within => 6..40 }
   validates :password_confirmation, presence: true
+  def feed
+    Micropost.where("usuario_id = ?", id)
+  end
+  def feedMicro
+    Micropost.from_users_followed_by(self)
+  end
+
+  def following?(other_user)
+    relationships.find_by_followed_id(other_user.id)
+  end
+
+  def follow!(other_user)
+    relationships.create!(followed_id: other_user.id)
+  end
+  def unfollow!(other_user)
+    relationships.find_by_followed_id(other_user.id).destroy
+  end
 
 private
 

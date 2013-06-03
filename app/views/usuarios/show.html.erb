@@ -1,29 +1,33 @@
 <% provide(:title, @usuario.username) %>
 <h1><%= @usuario.username %></h1>
-
 <div class="row">
   <aside class="span4">
     <section>
-      <h1>
- 		 	<%= gravatar_for @usuario %>
-  		<%= @usuario.username %>
-		      </h1>
+      <h4> Perfil de <%= @usuario.username %></h4>
+    </section>
+    <section>
+      <h4>
+      <%= gravatar_for @usuario %>
+      Usuario: <br>
+      <%= @usuario.username %><br>
+      Email: <br>
+      <%= @usuario.email %>
+      </h4>
+    </section>
+      <section>
+      <%= render 'shared/stats' %>
+    </section>
+    <section>
     </section>
   </aside>
+    <div class="span8"> 
+    <%= render 'follow_form' if signed_in? %>   
+    <% if @usuario.microposts.any? %>
+      <h3>Twittubits: (<%= @usuario.microposts.count %>)</h3>
+      <ol class="microposts">
+        <%= render @microposts %>
+      </ol>
+      <%= will_paginate @microposts %>
+    <% end %>
+  </div>
 </div>
-
-		<p id="notice"><%= notice %></p>
-
-		<p>
-  			<b>Nombre:</b>
-  			<%= @usuario.username %></br>
-  			<b>Email:</b>
-  			<%= @usuario.email %>
-		</p>
-	</td>
-   </tr>
-</table>
-
-<%= link_to 'Edit', edit_usuario_path(@usuario) %> |
-<%= link_to 'Back', usuarios_path %>
-

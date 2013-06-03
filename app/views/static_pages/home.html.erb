@@ -1,22 +1,37 @@
 <% provide(:title, 'Home') %>
-<h1>Home from Css App</h1>
-<h3> Autor: <%= @autor %> </h3>
-<p>
-  This is the home page for the
-  <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
-  Css application.
-</p>
+<% if signed_in? %>
+  <div class="row">
+    <aside class="span4">
+      <section>
+        <%= render 'shared/usuario_info' %>
+      </section>
+      <section>
+        <%= render 'shared/stats' %>
+      </section>
+      <section>
+        <%= render 'shared/micropost_form' %>
+      </section>
+    </aside>
+  </div>  
+   <div class="span8">
+      <h3>Twittubits:</h3>
+      <%= render 'shared/feed' %>
+    </div>
+  </div>
+<% else %>
+<h6>Bienvenido</h6>
 
 <div class="center hero-unit">
-  <h1>Bienvenido a Twittube</h1>
+  <h1>Twittube</h1>
 
   <h2>
-    This is the home page for the
-    <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
-    sample application.
+    Esta red social ha sido desarrollada gracias al
+    <a href="http://railstutorial.org/">Tutorial de Ruby on Rails </a>
   </h2>
 
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+  <%= link_to "Registrate ahora!", signup_path, class: "btn" %>
 </div>
 
 <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+<h4> Desarrollado por: " Noel Díaz Mesa, Sergio Afonso García y María Rojas " </h4>
+<% end %> 

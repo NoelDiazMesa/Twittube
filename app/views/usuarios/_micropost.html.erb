@@ -1,0 +1,13 @@
+<li>
+	<iframe width="560" height="315" 
+        src="http://www.youtube.com/embed/Eqe6otfxslc" 
+        frameborder="0" allowfullscreen></iframe>
+
+  <span class="content"><%= micropost.content%></span>
+  <span class="timestamp">
+    Publicado: <%= time_ago_in_words(micropost.created_at) %> ago.
+  </span>
+</li>
+
+
+<%= @usuario.microposts.content.split('=').last %>
