@@ -1,8 +1,8 @@
 class UsuariosController < ApplicationController
-  #before_filter :signed_in_user, 
-  #              only: [:index, :edit, :update, :destroy, :following, :followers]
-  #before_filter :correct_user,   only: [:edit, :update]
-  #before_filter :admin_user,     only: :destroy
+  before_filter :signed_in_user, 
+                only: [:index, :edit, :update, :destroy, :following, :followers]
+  before_filter :correct_user,   only: [:edit, :update]
+  before_filter :admin_user,     only: :destroy
  
   def index
     @usuarios = Usuario.paginate(page: params[:page])
@@ -46,7 +46,7 @@ class UsuariosController < ApplicationController
   
   def destroy
     Usuario.find(params[:id]).destroy
-    flash[:success] = "usuario destroyed."
+    flash[:success] = "Usuario destroyed."
     redirect_to usuarios_path
   end
 
