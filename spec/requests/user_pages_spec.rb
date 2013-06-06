@@ -65,7 +65,6 @@ describe "User pages" do
 
     before { visit usuario_path(usuario) }
 
-    it { should have_selector('h1',    text: usuario.username) }
     it { should have_selector('title', text: usuario.username) }
 
     describe "microposts" do

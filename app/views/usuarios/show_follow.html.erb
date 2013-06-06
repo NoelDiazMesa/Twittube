@@ -1,5 +1,4 @@
 <% provide(:title, @title) %>
-<% if signed_in? %>
 <div class="row">
   <aside class="span4">
     <section>
@@ -29,6 +28,3 @@
     <% end %>
   </div>
 </div>
-<% else %>
-<%= redirect_to signin_path, notice: "Please sign in." %>
-<% end %> 
